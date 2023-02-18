@@ -1,11 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import './index.css'
+import './main.css'
 import '@vkontakte/vkui/dist/vkui.css';
 import { AdaptivityProvider } from '@vkontakte/vkui';
 import { ConfigProvider } from '@vkontakte/vkui';
 import bridge from '@vkontakte/vk-bridge';
+import {Provider} from "react-redux";
+import {store} from "./redux/store";
 
 // Инициализируем VK Mini App
 bridge.send('VKWebAppInit')
@@ -22,9 +24,11 @@ bridge.send('VKWebAppInit')
 //     });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <ConfigProvider>
-        <AdaptivityProvider>
-            <App />
-        </AdaptivityProvider>
-    </ConfigProvider>
+    <Provider store={store}>
+        <ConfigProvider>
+            <AdaptivityProvider>
+                <App />
+            </AdaptivityProvider>
+        </ConfigProvider>
+    </Provider>
 )
